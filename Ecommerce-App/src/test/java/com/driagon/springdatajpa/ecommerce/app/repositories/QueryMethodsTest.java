@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @SpringBootTest
@@ -104,6 +105,52 @@ public class QueryMethodsTest {
     @Test
     void findByPriceBetweenMethod() {
         List<Product> products = this.productRepository.findByPriceBetween(new BigDecimal(100), new BigDecimal(300));
+
+        products.forEach(p -> {
+            System.out.println("p.getId() = " + p.getId());
+            System.out.println("p.getName() = " + p.getName());
+        });
+    }
+
+    @Test
+    void findByDateCreatedBetweenMethod() {
+        // Start Date
+        LocalDateTime startDate = LocalDateTime.of(2023, 10, 3, 22, 23, 9);
+
+        // End Date
+        LocalDateTime endDate = LocalDateTime.of(2023, 10, 3, 22, 29, 26);
+
+        List<Product> products = this.productRepository.findByDateCreatedBetween(startDate, endDate);
+
+        products.forEach(p -> {
+            System.out.println("p.getId() = " + p.getId());
+            System.out.println("p.getName() = " + p.getName());
+        });
+    }
+
+    @Test
+    void findByNameInMethod() {
+        List<Product> products = this.productRepository.findByNameIn(List.of("Product 1", "Product 2", "Product 4"));
+
+        products.forEach(p -> {
+            System.out.println("p.getId() = " + p.getId());
+            System.out.println("p.getName() = " + p.getName());
+        });
+    }
+
+    @Test
+    void findFirst2ByOrderByNameAscMethod() {
+        List<Product> products = this.productRepository.findFirst2ByOrderByNameAsc();
+
+        products.forEach(p -> {
+            System.out.println("p.getId() = " + p.getId());
+            System.out.println("p.getName() = " + p.getName());
+        });
+    }
+
+    @Test
+    void findTop3ByOrderByPriceDescMethod() {
+        List<Product> products = this.productRepository.findTop3ByOrderByPriceDesc();
 
         products.forEach(p -> {
             System.out.println("p.getId() = " + p.getId());
