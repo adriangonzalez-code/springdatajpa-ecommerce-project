@@ -17,6 +17,41 @@ import java.time.LocalDateTime;
 @Table(name = "products", schema = "ecommerce", uniqueConstraints = {
         @UniqueConstraint(name = "sku_unique", columnNames = "stock_keeping_unit")
 })
+/*@NamedQuery(
+        name = "Product.findByPrice",
+        query = "select p from Product p where p.price = :price"
+)*/
+@NamedQueries(
+        {
+                @NamedQuery(
+                        name = "Product.findAllOrderByNameDesc",
+                        query = "select p from Product p order by p.name desc"
+                ),
+                @NamedQuery(
+                        name = "Product.findByPrice",
+                        query = "select p from Product p where p.price = :price"
+                )
+        }
+)
+/*@NamedNativeQuery(
+        name = "Product.findByDescription",
+        query = "select * from products p where p.description = :description",
+        resultClass = Product.class
+)*/
+@NamedNativeQueries(
+        {
+                @NamedNativeQuery(
+                        name = "Product.findByDescription",
+                        query = "select * from products p where p.description = :description",
+                        resultClass = Product.class
+                ),
+                @NamedNativeQuery(
+                        name = "Product.findAllOrderByNameASC",
+                        query = "select * from products p order by p.name asc",
+                        resultClass = Product.class
+                )
+        }
+)
 public class Product {
 
     @Id
