@@ -37,7 +37,6 @@ public class Order {
     @Column(name = "last_updated")
     private LocalDateTime lastUpdated;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "billing_address_id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "order")
     private Address billingAddress;
 }

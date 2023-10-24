@@ -28,4 +28,8 @@ public class Address {
 
     @Column(name = "zip_code")
     private String zipCode;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Order order;
 }
