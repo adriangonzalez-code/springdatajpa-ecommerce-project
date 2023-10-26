@@ -42,7 +42,16 @@ public class Order {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "order")
     private Address billingAddress;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "order")
     private Set<OrderItem> orderItems = new HashSet<>();
+
+    public BigDecimal getTotalAmount() {
+        BigDecimal amount = new BigDecimal(0.0);
+
+        for (OrderItem item : this.getOrderItems()) {
+            amount = amount.add(item.getPrice());
+        }
+
+        return amount;
+    }
 }
